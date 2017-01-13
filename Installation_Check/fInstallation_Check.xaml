@@ -1,0 +1,37 @@
+<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Installation_Check.fInstallation_Check"
+	Title="fInstallation_Check" Height="419" Width="986" Initialized="Window_Initialized">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <avalonEdit:TextEditor
+    xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+    x:Name="tbScript"
+    FontFamily="Consolas"
+    SyntaxHighlighting="C#"
+    FontSize="10pt"  Text="using Installation_Check;&#xA;void Execute(TInstallation_Check _ic)&#xA;  {&#xA;  _ic.Traite_Commande_ssh(&quot;pwd&quot;, &quot;pwd&quot;);&#xA;  _ic.Verifie_CHMOD_777(&quot;./tmp/test_ll/droits_777&quot;);&#xA;  _ic.Verifie_CHMOD_777(&quot;./tmp/test_ll/droits_differents&quot;);&#xA;  _ic.Verifie_Owner_Group(&quot;./tmp/test_ll/non_partage&quot;, &quot;jean&quot;, &quot;jean&quot;);&#xA;  _ic.Verifie_Owner_Group(&quot;./tmp/test_ll/partage&quot;, &quot;jean&quot;, &quot;jean&quot;);&#xA;  _ic.Traite_Commande_ssh(&quot;fpc -v&quot;, &quot;Version de FreePascal&quot;);&#xA;  //_ic.Traite_ll(&quot;./&quot;);&#xA;  _ic.Traite_Commande_locale(&quot;fpc&quot;, &quot;-v&quot;, &quot;Version de freepascal en local&quot;);  }" />
+            <GridSplitter HorizontalAlignment="Stretch" Margin="0,192,0,-5" Grid.Column="1" />
+            <Grid Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel x:Name ="sp" Margin="0,0,48,0" Grid.Column="1" />
+                <Button x:Name="bRun" Height="18" TabIndex="4" Click="bRun_Click" VerticalAlignment="Top" Margin="3,16,8,0" Padding="0" Content="Run" />
+            </Grid>
+        </Grid>
+        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" />
+        <TextBox Grid.Row="2" x:Name="tb" TabIndex="2" TextWrapping="Wrap" FontFamily="Courier New" />
+    </Grid>
+</Window>

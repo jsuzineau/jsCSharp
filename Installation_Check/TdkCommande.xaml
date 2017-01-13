@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="Installation_Check.TdkCommande"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Installation_Check"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Ellipse HorizontalAlignment="Left" Height="9" Margin="0,5,0,0" Stroke="Black" VerticalAlignment="Top" Width="9" OpacityMask="Black" Fill="{Binding LED_Color}"/>
+        <Label x:Name="lLibelle" FontFamily="Courier New" TabIndex="1" Content="{Binding Libelle}" Grid.Column="1" />
+
+    </Grid>
+</UserControl>
