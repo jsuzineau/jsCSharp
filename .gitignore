@@ -15,8 +15,9 @@
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
-x64/
-x86/
+[Xx]64/
+[Xx]86/
+[Bb]uild/
 bld/
 [Bb]in/
 [Oo]bj/
@@ -184,6 +185,7 @@ _pkginfo.txt
 
 # Others
 ClientBin/
+[Ss]tyle[Cc]op.*
 ~$*
 *~
 *.dbmdl
@@ -240,6 +242,10 @@ FakesAssemblies/
 **/*.Server/ModelManifest.xml
 _Pvt_Extensions
 
+# LightSwitch generated files
+GeneratedArtifacts/
+ModelManifest.xml
+
 # Paket dependency manager
 .paket/paket.exe
 paket-files/
@@ -250,3 +256,6 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+Installation_Check/bin/Debug/script.cs
+Installation_Check/bin/Debug/scriptConnexion.cs
