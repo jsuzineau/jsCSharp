@@ -235,6 +235,16 @@ class TVerifie_CHMOD_777 : TTraite_ll
       bl.Display_Resultat();
       }
 
+    //Lecture d'une valeur dans un fichier ini
+    public void Valeur_dans_Fichier_ini(String _Libelle, String _IniFile, String _Section, String _Key, String _Value)
+      {
+      TblCommande_Inifile bl = new TblCommande_Inifile(sl);
+      bl.Init(tb, sp, _IniFile, _Section, _Key, _Value, _Libelle);
+      bl.Execute();
+      bl.Add_Line(_Libelle);
+      bl.Display_Resultat();
+      }
+    
     public void Traite_ll( String _Repertoire)
       {
       (new TTraite_ll(sl)).Init( ssh, tb, sp, _Repertoire).Execute();

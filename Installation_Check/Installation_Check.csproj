@@ -110,6 +110,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="IniFileHelper.cs" />
     <Compile Include="TdkCommande.xaml.cs">
       <DependentUpon>TdkCommande.xaml</DependentUpon>
     </Compile>

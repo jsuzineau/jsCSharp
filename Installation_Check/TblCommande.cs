@@ -27,30 +27,30 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using Renci.SshNet; /* reference needed: Renci.SshNet.dll */
 using System.Diagnostics;
-
+using ReadWriteIniFileExample;
 
 namespace Installation_Check
-{
-    public class TStringList : List<String>
-      {
-      public String Text()
-        {
-        return String.Join("\n",this);
-        }
-      public void _from_Split(String _s, params char[] separator)
-        {
-        base.AddRange(_s.Split(separator).ToList());
-        }
-      }
-    public class TslCommande : List<TblCommande> {}
-    public abstract class TblCommande
+  {
+  public class TStringList : List<String>
     {
-    public String Commande  { get; set; }
-    public String Libelle   { get; set; }
-    public String Resultat  { get; set; }
+    public String Text()
+      {
+      return String.Join("\n", this);
+      }
+    public void _from_Split(String _s, params char[] separator)
+      {
+      base.AddRange(_s.Split(separator).ToList());
+      }
+    }
+  public class TslCommande : List<TblCommande> { }
+  public abstract class TblCommande
+    {
+    public String Commande { get; set; }
+    public String Libelle { get; set; }
+    public String Resultat { get; set; }
     public TStringList slResultat;
-    public int ExitStatus   { get; set; }
-    public string Error     { get; set; }
+    public int ExitStatus { get; set; }
+    public string Error { get; set; }
     public String LED_Color { get; set; }
     private TextBox tb;
     private StackPanel sp;
@@ -62,32 +62,32 @@ namespace Installation_Check
       slResultat = new TStringList();
       }
     //Initialisation
-    public TblCommande Init( TextBox _tb, StackPanel _sp, String _Commande, String _Libelle)
+    public TblCommande Init(TextBox _tb, StackPanel _sp, String _Commande, String _Libelle)
       {
-      tb      = _tb      ;
-      sp     = _sp     ; 
-      Commande= _Commande;
-      Libelle = _Libelle ;
-      if ("" == Libelle) Libelle= Commande;
+      tb = _tb;
+      sp = _sp;
+      Commande = _Commande;
+      Libelle = _Libelle;
+      if ("" == Libelle) Libelle = Commande;
       Accroche();
       return this;
       }
-    protected TdkCommande uc=null;
+    protected TdkCommande uc = null;
     private void Accroche()
       {
-      uc= new TdkCommande(this);
+      uc = new TdkCommande(this);
       sp.Children.Add(uc);
       }
 
     //Lancement du thread
     public abstract void Execute();
-    public void Add_Line( String _S)
+    public void Add_Line(String _S)
       {
-      tb.Text+= _S+"\r\n";
+      tb.Text += _S + "\r\n";
       }
     public void Display_Resultat()
       {
-      string Resultat_Formatte= Resultat.Replace( "\n","\r\n");
+      string Resultat_Formatte = Resultat.Replace("\n", "\r\n");
       Add_Line("Resultat: >" + Resultat_Formatte + "<");
       if (ExitStatus != 0)
         {
@@ -97,19 +97,19 @@ namespace Installation_Check
       }
     public virtual void Commande_Terminated()
       {
-      LED_Color= "Lime";
-      Libelle= Libelle + ": " + (slResultat.Count>0?slResultat[0]:"");
+      LED_Color = "Lime";
+      Libelle = Libelle + ": " + (slResultat.Count > 0 ? slResultat[0] : "");
       }
     }
-  public class TblCommande_ssh:TblCommande
+  public class TblCommande_ssh : TblCommande
     {
     private SshClient ssh;
-    public TblCommande_ssh(TslCommande _sl): base(_sl){}
+    public TblCommande_ssh(TslCommande _sl) : base(_sl) { }
     //Initialisation
     public TblCommande Init(SshClient _ssh, TextBox _tb, StackPanel _sp, String _Commande, String _Libelle)
       {
       ssh = _ssh;
-      return base.Init( _tb, _sp, _Commande, _Libelle);
+      return base.Init(_tb, _sp, _Commande, _Libelle);
       }
     public override void Execute()
       {
@@ -141,20 +141,45 @@ namespace Installation_Check
       p.StartInfo.RedirectStandardOutput = true;
       p.StartInfo.RedirectStandardError = true;
       //p.StartInfo.FileName = "YOURBATCHFILE.bat";
-      p.StartInfo.FileName = Commande ;
-      p.StartInfo.Arguments= Arguments;
+      p.StartInfo.FileName = Commande;
+      p.StartInfo.Arguments = Arguments;
       p.Start();
       // Do not wait for the child process to exit before
       // reading to the end of its redirected stream.
       // p.WaitForExit();
       // Read the output stream first and then wait.
       p.WaitForExit();
-      Resultat   = p.StandardOutput.ReadToEnd();
-      Error      = p.StandardError .ReadToEnd(); 
+      Resultat = p.StandardOutput.ReadToEnd();
+      Error = p.StandardError.ReadToEnd();
       ExitStatus = p.ExitCode;
       slResultat._from_Split(Resultat, '\n');
       Commande_Terminated();
       }
 
+    }
+  public class TblCommande_Inifile : TblCommande
+    {
+    String IniFile, Section, Key, Value;
+    public TblCommande_Inifile(TslCommande _sl) : base(_sl) { }
+    public TblCommande Init(TextBox _tb, StackPanel _sp, String _IniFile, String _Section, String _Key, String _Value, String _Libelle)
+      {
+      IniFile = _IniFile;
+      Section = _Section;
+      Key = _Key;
+      Value = _Value;
+
+      return base.Init(_tb, _sp, "", _Libelle);
+      }
+    //Initialisation
+    public override void Execute()
+      {
+      Resultat = IniFileHelper.ReadValue(Section, Key, IniFile);
+      Error = "";
+      ExitStatus = 0;
+      slResultat._from_Split(Resultat, '\n');
+      Commande_Terminated();
+      if (Value != "")
+        LED_Color = (Resultat == Value) ? "Lime" : "Red";
+      }
     }
   }
