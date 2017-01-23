@@ -150,10 +150,14 @@ class TVerifie_CHMOD_777 : TTraite_ll
     //Succes
     public override void Calcule_Succes()
     {
+    ExitStatus = -1;
+    Error = "\n" + Error + "\n" + slConsolidation.Text()+ "\n";
     Succes= slConsolidation.Count == 1;
     if (!Succes) return;
 
     Succes= slConsolidation[0] == "rwxrwxrwx";//777
+    if (Succes)
+      ExitStatus = 0;
     }
   }
 
@@ -190,12 +194,16 @@ class TVerifie_CHMOD_777 : TTraite_ll
   //Succes
   public override void Calcule_Succes()
     {
-    Succes= slConsolidation.Count == 1;
+    ExitStatus = -1;
+    Error = "\n" + Error + "\n"+slConsolidation.Text()+ "\n";
+    Succes = slConsolidation.Count == 1;
     if (!Succes) return;
 
     Succes= slConsolidation[0] == OwnerConstraint + " " + GroupConstraint;
+    if (Succes)
+      ExitStatus = 0;
+      }
     }
-  }
 
   public class TInstallation_Check
     {
