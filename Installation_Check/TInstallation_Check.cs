@@ -70,10 +70,11 @@ drwxrwxr-x  3 jean jean    4096 janv.  9  2016 analyseur_4gl
       for (int i = 0; i < slBrut.Count; i++)
         {
         String s = slBrut[i];
+        if (s.Length < 10) continue;
+
         //Rights = s.Substring(0, 10);
         Rights = s.Substring(0, 10);
         s= s.Remove(0, 10);
-        truc.StrToK(" ", ref s);
         s = s.TrimStart();
         truc.StrToK(" ", ref s);
         sOwner = truc.StrToK(" ", ref s);

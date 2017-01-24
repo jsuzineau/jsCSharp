@@ -65,8 +65,15 @@ namespace Installation_Check
 
     private void bRun_Click(object sender, EventArgs e)
     {
-      //script_classe();
-      script_methode();
+      try
+        {
+        //script_classe();
+        script_methode();
+        }
+      catch(Exception ex)
+        {
+        tb.Text = "Exception \n" + ex.Message + "\nPile d'appels:\n" + Environment.StackTrace;
+        }
     }
   private void script_classe()
     {

@@ -27,11 +27,11 @@
                     <ColumnDefinition Width="60"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <StackPanel x:Name ="sp" Margin="0,0,48,0" Grid.Column="1" />
+                <StackPanel x:Name ="sp" Margin="0,0,48,0" Grid.Column="1" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" />
                 <Button x:Name="bRun" Height="18" TabIndex="4" Click="bRun_Click" VerticalAlignment="Top" Margin="3,16,8,0" Padding="0" Content="Run" />
             </Grid>
         </Grid>
         <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" />
-        <TextBox Grid.Row="2" x:Name="tb" TabIndex="2" TextWrapping="Wrap" FontFamily="Courier New" />
+        <TextBox Grid.Row="2" x:Name="tb" TabIndex="2" TextWrapping="Wrap" FontFamily="Courier New" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Visible" />
     </Grid>
 </Window>
