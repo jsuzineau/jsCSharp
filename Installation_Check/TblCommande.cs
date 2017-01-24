@@ -31,6 +31,27 @@ using ReadWriteIniFileExample;
 
 namespace Installation_Check
   {
+  public class truc
+    {
+    public static String StrToK(String Key, ref String S)
+      {
+      String Resultat;
+      int I = S.IndexOf(Key);
+      if (-1 == I)
+        {
+        Resultat = S;
+        S = "";
+        }
+      else
+        {
+        Resultat = S.Substring(0, I);
+        S= S.Remove(0, I + Key.Length);
+        }
+
+      return Resultat;
+      }
+    }
+
   public class TStringList : List<String>
     {
     public String Text()
