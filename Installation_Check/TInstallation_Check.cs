@@ -60,9 +60,9 @@ namespace Installation_Check
         {
         String s = slBrut[i];
 
-        if (1 == s.IndexOf(Repertoire)) slBrut.RemoveAt(i);
-        else if (1 == s.IndexOf("total")) slBrut.RemoveAt(i);
-        else if ("" == s) slBrut.RemoveAt(i);
+             if (0 == s.IndexOf(Repertoire)) slBrut.RemoveAt(i);
+        else if (0 == s.IndexOf("total")   ) slBrut.RemoveAt(i);
+        else if (""  == s.Trim()           ) slBrut.RemoveAt(i);
         }
       /*
 drwxrwxr-x  3 jean jean    4096 janv.  9  2016 analyseur_4gl
