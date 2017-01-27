@@ -155,7 +155,7 @@ class TVerifie_CHMOD_777 : TTraite_ll
     public override void Calcule_Succes()
     {
     ExitStatus = -1;
-    Error = "\n" + Error + "\n" + slConsolidation.Text()+ "\n";
+    Error = "\n" + (Error == "" ? "" : Error + "\n") + slConsolidation.Text()+ "\n";
     Succes= slConsolidation.Count == 1;
     if (!Succes) return;
 
@@ -199,7 +199,7 @@ class TVerifie_CHMOD_777 : TTraite_ll
   public override void Calcule_Succes()
     {
     ExitStatus = -1;
-    Error = "\n" + Error + "\n"+slConsolidation.Text()+ "\n";
+    Error = "\n" + (Error == "" ? "" : Error + "\n") + slConsolidation.Text()+ "\n";
     Succes = slConsolidation.Count == 1;
     if (!Succes) return;
 

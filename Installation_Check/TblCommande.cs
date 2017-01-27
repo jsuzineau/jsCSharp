@@ -108,13 +108,13 @@ namespace Installation_Check
       }
     public void Display_Resultat()
       {
-      string Resultat_Formatte = Resultat.Replace("\n", "\r\n");
-      Add_Line("Resultat: >" + Resultat_Formatte + "<");
       if (ExitStatus != 0)
         {
         Add_Line("ExitStatus: >" + ExitStatus + "<");
         Add_Line("Error: >" + Error + "<");
         }
+      string Resultat_Formatte = Resultat.Replace("\n", "\r\n");
+      Add_Line("Resultat: >" + Resultat_Formatte + "<");
       }
     public virtual void Commande_Terminated()
       {
